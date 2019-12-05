@@ -85,7 +85,16 @@ function handleItemCheckClicked() {
 function handleDeleteItemClicked() {
   // this function will be responsible for when users want to delete a shopping list
   // item
-  console.log('`handleDeleteItemClicked` ran')
+  $('.js-shopping-list').on('click', '.js-item-delete', event => {
+    console.log('`handleDeleteItemClicked` ran');
+    const deletedItemId = getItemIdFromElement(event.currentTarget);
+    console.log(deletedItemId);
+    const deletedItemIndex = STORE.findIndex(element => element.id === deletedItemId);
+    STORE.splice(deletedItemIndex, deletedItemIndex + 1);
+
+    renderShoppingList();
+  });
+  
 }
 
 // this function will be our callback when the page loads. it's responsible for
