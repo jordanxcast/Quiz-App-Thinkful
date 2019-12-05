@@ -90,7 +90,7 @@ function handleDeleteItemClicked() {
     const deletedItemId = getItemIdFromElement(event.currentTarget);
     console.log(deletedItemId);
     const deletedItemIndex = STORE.findIndex(element => element.id === deletedItemId);
-    STORE.splice(deletedItemIndex, deletedItemIndex + 1);
+    STORE.splice(deletedItemIndex, 1);
 
     renderShoppingList();
   });
