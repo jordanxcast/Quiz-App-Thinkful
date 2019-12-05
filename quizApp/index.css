@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Courgette', cursive;
+}
+
+
+.start-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 12%;
+}
+
+.start-page > h1, p {
+    text-align: center;
+}
+
+.intro1 {
+    font-size: 50px;
+    text-shadow: 2px 2px 5px lightpink;
+}
+
+.intro2 {
+    font-size: 40px;
+}
+
+.introButton {
+    margin-left: 42%;
+    margin-right: 42%;
+    margin-top: 10px;
+    height: 50px;
+    font-size: 20px;
+    background-color: mistyrose;
+
+}
