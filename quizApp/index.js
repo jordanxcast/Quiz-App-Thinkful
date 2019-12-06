@@ -132,6 +132,7 @@ function presentQuestion() {
   // Show question
   $('main').html(questionTemplate());
   $('.feedback-box').hide();
+  submitAnswer();
 }
 
 // Check answer and run the next question
@@ -147,14 +148,20 @@ function submitAnswer() {
     }
     STORE.currentQuestion++;
     if (STORE.currentQuestion < 5){
-    $('button').val('Next');
+    $('button').text('Next');
     }
     else {
-      $('button').val('Finish');
+      $('button').text('Finish');
       showResult();
     }
-    
   });
+
+  if(STORE.startQuiz === true && $('button').text() === 'Next'){
+    presentQuestion();
+  }
+  if(STORE.startQuiz === true && $('button').text() === 'Finish'){
+    showResult();
+  }
 }
 
 function correctAnswer(){
@@ -182,16 +189,6 @@ function renderQuiz() {
   // Render app when loads
   startPage();
   startQuiz();
-
-  if(STORE.startQuiz === true && $('button').text() === 'SUBMIT'){
-    submitAnswer();
-  }
-  if(STORE.startQuiz === true && $('button').text() === 'Next'){
-    presentQuestion();
-  }
-  if(STORE.startQuiz === true && $('button').text() === 'Finish'){
-    showResult();
-  }
 }
 
 $(renderQuiz());
