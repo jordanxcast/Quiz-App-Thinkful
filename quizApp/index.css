@@ -72,6 +72,14 @@
     font-size: .5rem;
 }
 
+.wrong-icon{
+    color: red;
+}
+
+.correct-icon{
+    color: green;
+}
+
 .score{ 
     margin-bottom: 5px;
     margin-top: 10px;
