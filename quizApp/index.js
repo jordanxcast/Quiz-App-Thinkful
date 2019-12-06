@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable strict */
 
 // Quiz questions
@@ -72,7 +73,7 @@ function startTemplate() {
 function questionTemplate() {
   // Create elements for the questions page
   return `<div>
-  <h1 class="current-question">Question ${STORE.currentQuestion + 1}/5</h1>
+  <h1 class="current-question">Question ${STORE.currentQuestion + 1}/6</h1>
   <p class="question-content">${STORE.questionnaire[currentQuestion].question}</p>
 </div>
 <div>
@@ -94,7 +95,7 @@ function questionTemplate() {
   <span class="wrong-icon"></span>${5 - STORE.currentQuestion} <span class="wrong-count">#</span>
 </div>
 <div>
-  <button type="button" class="submit-button">SUBMIT</button>
+  <button type="button" class="submit-button next-button">SUBMIT</button>
 </div>`;
 }
 
@@ -113,17 +114,15 @@ function startPage() {
 }
 
 function presentQuestion() {
-  // Before question is presented, checks a few items
-  if(currentQuestion===1 && startQuiz === true){
-    $('feedback-box').hide();
-    $('main').html(questionTemplate());
-  }
+  // Show question
+  $('feedback-box').hide();
+  $('main').html(questionTemplate());
+
 }
 
 function startQuiz() {
   // Start the quiz when Begin or Play Again is clicked
   $('js-start-page').on('click', '.introButton', event => {
-    presentQuestion();
     STORE.startQuiz = true;
     STORE.score = 0,
     STORE.currentQuestion = 1;
@@ -139,12 +138,21 @@ function submitAnswer() {
     } else {
       incorrectAnswer();
     }
+    STORE.currentQuestion++;
+    if (STORE.currentQuestion < 5){
+    $('button').val('Next');
+    }
+    else {
+      $('button').val('Finish');
+      showResult();
+    }
   });
 }
 
 function correctAnswer(){
   // If answer is correct
   $(STORE.questionnaire[currentQuestion].answer).toggleClass('color', 'green');
+  STORE.score++;
 }
 
 function incorrectAnswer() {
@@ -152,11 +160,18 @@ function incorrectAnswer() {
   $('feedback-box').show();
 }
 
+function showResult() {
+
+}
+
 function renderQuiz() {
   // Render app when loads
   startPage();
   startQuiz();
   submitAnswer();
+  if (startQuiz === true){
+  presentQuestion();
+  }
 }
 
 $(renderQuiz);
