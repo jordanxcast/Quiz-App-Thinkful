@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
     <link href="https://fonts.googleapis.com/css?family=Courgette&display=swap" rel="stylesheet">
 </head>
@@ -27,12 +27,14 @@
             <button class="introButton" type="submit">Play Again</button>
         </div>
 
-        <!-- QUESTION - UNANSWERED -->
-        <div>
+        <!-- QUESTIONS-->
+        <section class="question">
+            <div>
             <h1 class="current-question">Question 1/5</h1>
             <p class="question-content">'first question content'?</p>
-        </div>
-        <div>
+            </div>
+        </section>
+        <section class="answer-options">
             <label for="option1"></label>
             <input type="radio" name="options" id="option1" required><br>
             <label for="option2"></label>
@@ -41,142 +43,20 @@
             <input type="radio" name="options" id="option3" required><br>
             <label for="option4"></label>
             <input type="radio" name="options" id="option4" required><br>
-        </div>
-        <div id="score-counter">
-            <h3 class="score">Score:</h3>
-            <span class="correct-icon"></span> <span class="correct-count">#</span><br>
-            <span class="wrong-icon"></span> <span class="wrong-count">#</span>
-        </div>
-        <div>
-            <button type="button" class="submit-button">SUBMIT</button>
-        </div>
-    
-    <!-- QUESTION - CORRECT  -->
-        <div>
-            <h1 class="current-question">Question 1/5</h1>
-            <p class="question-content">'first question content'?</p>
-        </div>
-        <div>
-            <label for="option1"></label>
-            <input type="radio" name="options" id="option1" required><br>
-            <label for="option2"></label>
-            <input type="radio" name="options" id="option2" required><br>
-            <label for="option3"></label>
-            <input type="radio" name="options" id="option3" required><br>
-            <label for="option4"></label>
-            <input type="radio" name="options" id="option4" required><br>
-        </div>
-        <div id="score-counter">
-            <h3 class="score">Score:</h3>
-            <span class="correct-icon"></span> <span class="correct-count">#</span><br>
-            <span class="wrong-icon"></span> <span class="wrong-count">#</span>
-        </div>
-        <div>
-            <button type="button" class="next-button">NEXT</button>
-        </div>
-    
-    <!-- QUESTION - INCORRECT  -->
-        <div>
-            <h1 class="current-question">Question 1/5</h1>
-            <p class="question-content">'first question content'?</p>
-        </div>
-        <div>
-            <label for="option1"></label>
-            <input type="radio" name="options" id="option1" required><br>
-            <label for="option2"></label>
-            <input type="radio" name="options" id="option2" required><br>
-            <label for="option3"></label>
-            <input type="radio" name="options" id="option3" required><br>
-            <label for="option4"></label>
-            <input type="radio" name="options" id="option4" required><br>
-        </div>
+        </section>
         <div class="feedback-box">
-            <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually !</p>
+            <span><i class="fas fa-times wrong-icon"></i></span><p class="feedback-answer">Nice try. The correct answer is actually !</p>
         </div>
-        <div id="score-counter">
-            <h3 class="score">Score:</h3>
-            <span class="correct-icon"><i class="fad fa-check"></i></span> <span class="correct-count"></span><br>
-            <span class="wrong-icon"><i class="fas fa-times"></i></span> <span class="wrong-count"></span>
-        </div>
-        <div>
-            <button type="button" class="next-button">NEXT</button>
-        </div>
-    
-    
-       <!-- LAST QUESTION - UNANSWERED  -->
-        <div>
-            <h1 class="current-question">Question 1/5</h1>
-            <p class="question-content">'first question content'?</p>
-        </div>
-        <div>
-            <label for="option1"></label>
-            <input type="radio" name="options" id="option1" required><br> 
-            <label for="option2"></label>
-            <input type="radio" name="options" id="option2" required><br>
-            <label for="option3"></label>
-            <input type="radio" name="options" id="option3" required><br>
-            <label for="option4"></label>
-            <input type="radio" name="options" id="option4" required><br>
-        </div>
-        <div id="score-counter">
-            <h3 class="score">Score:</h3>
-            <span class="correct-icon"></span> <span class="correct-count"></span><br>
-            <span class="wrong-icon"></span> <span class="wrong-count"></span>
-        </div>
-        <div>
-            <button type="button" class="finish-button">FINISH</button>
-        </div>
-    
-       <!-- LAST QUESTION - SUBMITTED CORRECT -->
-        <div>
-            <h1 class="current-question">Question 5/5</h1>
-            <p class="question-content">'question content'?</p>
-        </div>
-        <div>
-            <label for="option1"></label>
-            <input type="radio" name="options" id="option1" required><br> 
-            <label for="option2"></label>
-            <input type="radio" name="options" id="option2" required><br>
-            <label for="option3"></label>
-            <input type="radio" name="options" id="option3" required><br>
-            <label for="option4"></label>
-            <input type="radio" name="options" id="option4" required><br>
-        </div>
-        <div id="score-counter">
-            <h3 class="score">Score:</h3>
-            <span class="correct-icon"></span> <span class="correct-count"></span><br>
-            <span class="wrong-icon"></span> <span class="wrong-count"></span>
-        </div>
-        <div>
-            <button type="button" class="see-results-button">SEE RESULTS</button>
-        </div>
-    
-       <!-- LAST QUESTION - SUBMITTED INCORRECT -->
-        <div>
-            <h1 class="current-question">Question 5/5</h1>
-            <p class="question-content">'question content'?</p>
-        </div>
-        <div>
-            <label for="option1"></label>
-            <input type="radio" name="options" id="option1" required><br> 
-            <label for="option2"></label>
-            <input type="radio" name="options" id="option2" required><br>
-            <label for="option3"></label>
-            <input type="radio" name="options" id="option3" required><br>
-            <label for="option4"></label>
-            <input type="radio" name="options" id="option4" required><br>
-        </div>
-        <div class="feedback-box">
-            <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually !</p>
-        </div>
-        <div id="score-counter">
-            <h3 class="score">Score:</h3>
-            <span class="correct-icon"><i class="fad fa-check"></i></span> <span class="correct-count"></span><br>
-            <span class="wrong-icon"><i class="fas fa-times"></i></span> <span class="wrong-count"></span>
-        </div>
-        <div>
-            <button type="button" class="see-results-button">RESULTS</button>
-        </div>
+        <footer class="score-button">
+            <div id="score-counter">
+                <h3 class="score">Score:</h3>
+                <i class="correct-icon fad fa-check"></i> <span class="correct-count">Correct: #</span>
+                <span class="wrong-icon fas fa-times"></span> <span class="wrong-count">Incorrect: #</span>
+            </div>
+            <div class="button-container">
+                <button type="button" class="submit-button">SUBMIT</button>
+            </div>
+        </footer> 
     </main> 
     <script src="//code.jquery.com/jquery.min.js"></script>
     <script type=ls "text/javascript" src="index.js"></script>
