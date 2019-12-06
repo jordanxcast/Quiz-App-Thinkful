@@ -42,7 +42,7 @@ const STORE = {
   ],
   score: 0,
   startQuiz: false,
-  currentQuestion: 1
+  currentQuestion: 0
 };
  
 
@@ -72,26 +72,26 @@ function startTemplate() {
 function questionTemplate() {
   // Create elements for the questions page
   return `<div>
-  <h1 class="current-question">Question ${STORE.currentQuestion}/5</h1>
-  <p class="question-content">'first question content'?</p>
+  <h1 class="current-question">Question ${STORE.currentQuestion + 1}/5</h1>
+  <p class="question-content">${STORE.questionnaire[currentQuestion].question}</p>
 </div>
 <div>
-  <label for="option1"></label>
+  <label for="option1">${STORE.questionnaire[currentQuestion].option1}</label>
   <input type="radio" name="options" id="option1" required><br>
-  <label for="option2"></label>
+  <label for="option2">${STORE.questionnaire[currentQuestion].option2}</label>
   <input type="radio" name="options" id="option2" required><br>
-  <label for="option3"></label>
+  <label for="option3">${STORE.questionnaire[currentQuestion].option3}</label>
   <input type="radio" name="options" id="option3" required><br>
-  <label for="option4"></label>
+  <label for="option4">${STORE.questionnaire[currentQuestion].option4}</label>
   <input type="radio" name="options" id="option4" required><br>
 </div>
 <div class="feedback-box">
-    <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually !</p>
+    <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[currentQuestion].answer}</p>
 </div>
 <div id="score-counter">
   <h3 class="score">Score:</h3>
-  <span class="correct-icon"></span> <span class="correct-count">#</span><br>
-  <span class="wrong-icon"></span> <span class="wrong-count">#</span>
+  <span class="correct-icon"></span>${STORE.score}<span class="correct-count">#</span><br>
+  <span class="wrong-icon"></span>${5 - STORE.currentQuestion} <span class="wrong-count">#</span>
 </div>
 <div>
   <button type="button" class="submit-button">SUBMIT</button>
@@ -115,9 +115,9 @@ function startPage() {
 function presentQuestion() {
   // Before question is presented, checks a few items
   if(currentQuestion===1 && startQuiz === true){
-    
+    $('feedback-box').hide();
+    $('main').html(questionTemplate());
   }
-  $('main').html(questionTemplate());
 }
 
 function startQuiz() {
@@ -132,17 +132,24 @@ function startQuiz() {
 
 function submitAnswer() {
   // Check answer and run the next question
-  
-  
+  $('main').on('click', '.submit-button', event => {
+    let answerSubmit = $('input[name=options]: checked').val();
+    if (STORE.questionnaire[currentQuestion].answer === answerSubmit) {
+      correctAnswer();
+    } else {
+      incorrectAnswer();
+    }
+  });
 }
 
 function correctAnswer(){
   // If answer is correct
+  $(STORE.questionnaire[currentQuestion].answer).toggleClass('color', 'green');
 }
 
 function incorrectAnswer() {
   // If answer is incorrect
-
+  $('feedback-box').show();
 }
 
 function renderQuiz() {
