@@ -74,19 +74,20 @@ function startTemplate() {
 
 function questionTemplate() {
   // Create elements for the questions page
-  return `<div>
+  return `
+<div>
   <h1 class="current-question">Question ${STORE.currentQuestion +1}/6</h1>
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </div>
 <div>
-  <label for="option1">${STORE.questionnaire[STORE.currentQuestion].option1}</label>
-  <input type="radio" name="options" id="option1" required><br>
-  <label for="option2">${STORE.questionnaire[STORE.currentQuestion].option2}</label>
-  <input type="radio" name="options" id="option2" required><br>
-  <label for="option3">${STORE.questionnaire[STORE.currentQuestion].option3}</label>
-  <input type="radio" name="options" id="option3" required><br>
-  <label for="option4">${STORE.questionnaire[STORE.currentQuestion].option4}</label>
-  <input type="radio" name="options" id="option4" required><br>
+  <input type="radio" name="options" id="option1" required>
+  <label for="option1">${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
+  <input type="radio" name="options" id="option2" required>
+  <label for="option2">${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
+  <input type="radio" name="options" id="option3" required>
+  <label for="option3">${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
+  <input type="radio" name="options" id="option4" required>
+  <label for="option4">${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
 </div>
 <div class="feedback-box">
     <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p>
@@ -103,10 +104,11 @@ function questionTemplate() {
 
 function resultTemplate() {
   // Create elements for the result page
-  return `<div class="start-page js-start-page">
-  <h1 class="intro1">Quiz Complete!</h2>
-  <p class="intro2 js-score">Score</p>
-  <button class="introButton" type="submit">Try Again</button>
+  return `
+  <div class="start-page js-start-page">
+    <h1 class="intro1">Quiz Complete!</h2>
+    <p class="intro2 js-score">Score</p>
+    <button class="introButton" type="submit">Try Again</button>
   </div>`;
 }
 
@@ -115,11 +117,6 @@ function startPage() {
   $('main').html(startTemplate());
 }
 
-function presentQuestion() {
-  // Show question
-  $('.feedback-box').hide();
-  $('main').html(questionTemplate());
-}
 
 function startQuiz() {
   // Start the quiz when Begin or Play Again is clicked
@@ -129,12 +126,17 @@ function startQuiz() {
     // Present the first question
     presentQuestion();
   });
-
 }
 
+function presentQuestion() {
+  // Show question
+  $('main').html(questionTemplate());
+  $('.feedback-box').hide();
+}
 
+// Check answer and run the next question
 function submitAnswer() {
-  // Check answer and run the next question
+  console.log('submitAnswer ran');
   $('main').on('click', '.submit-button', event => {
     let answerSubmit = $('input[name=options]: checked').val();
     if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit) {
@@ -151,7 +153,7 @@ function submitAnswer() {
       $('button').val('Finish');
       showResult();
     }
-
+    
   });
 }
 
@@ -181,13 +183,13 @@ function renderQuiz() {
   startPage();
   startQuiz();
 
-  if(STORE.startQuiz === true && button.val() === 'Submit'){
+  if(STORE.startQuiz === true && $('button').text() === 'SUBMIT'){
     submitAnswer();
   }
-  if(STORE.startQuiz === true && button.val() === 'Next'){
+  if(STORE.startQuiz === true && $('button').text() === 'Next'){
     presentQuestion();
   }
-  if(STORE.startQuiz === true && button.val() ==='Finish'){
+  if(STORE.startQuiz === true && $('button').text() === 'Finish'){
     showResult();
   }
 }
