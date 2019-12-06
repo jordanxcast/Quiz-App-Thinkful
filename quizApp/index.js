@@ -119,12 +119,11 @@ function presentQuestion() {
   // Show question
   $('feedback-box').hide();
   $('main').html('questionTemplate()');
-
 }
 
 function startQuiz() {
   // Start the quiz when Begin or Play Again is clicked
-  $('js-start-page').on('click', '.introButton', event => {
+  $('.js-start-page').on('click', '.introButton', event => {
     STORE.startQuiz = true;
     STORE.score = 0,
     STORE.currentQuestion = 1;
