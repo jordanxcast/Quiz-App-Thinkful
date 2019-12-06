@@ -80,14 +80,17 @@ function questionTemplate() {
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </div>
 <div>
-  <input type="radio" name="options" id="option1" required>
-  <label for="option1">${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
-  <input type="radio" name="options" id="option2" required>
-  <label for="option2">${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
-  <input type="radio" name="options" id="option3" required>
-  <label for="option3">${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
-  <input type="radio" name="options" id="option4" required>
-  <label for="option4">${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
+  <label for="option1"><input type="radio" name="options" id="option1" required>
+  ${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
+
+  <label for="option2"><input type="radio" name="options" id="option2" required>
+  ${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
+
+  <label for="option3"><input type="radio" name="options" id="option3" required>
+  ${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
+
+  <label for="option4"><input type="radio" name="options" id="option4" required>
+  ${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
 </div>
 <div class="feedback-box">
     <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p>
@@ -135,42 +138,42 @@ function presentQuestion() {
   submitAnswer();
 }
 
+// STORE.currentQuestion++; <- !!!
+
+
 // Check answer and run the next question
 function submitAnswer() {
   console.log('submitAnswer ran');
   $('main').on('click', '.submit-button', event => {
     //console.log('event listener working for submit button');
-
-    $('[name="x"]').on('change', function () {
-
-      alert($('[name="x"]:checked').closest('label').text());
-  
-  });
-    let answerSubmit = $("input[name='options']:checked").closest('label');
+    let answerSubmit = $("input[name='options']:checked").parent('label').text();
     console.log(answerSubmit);
-    if (STORE.questionnaire[STORE.currentQuestion].answer.toLowerCase() === answerSubmit.toLowerCase()) {
+    
+    if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit) {
       correctAnswer();
       scoreKeeping();
     } else {
       incorrectAnswer();
-    }sdf
-    STORE.currentQuestion++;
+    }
 
     if (STORE.currentQuestion < 5) {
       $('button').text('Next');
+      
     } else {
       $('button').text('Finish');
       showResult();
     }
+
+    if(STORE.startQuiz === true && $('button').text() === 'Next'){
+      presentQuestion();
+      
+    }
+    if(STORE.startQuiz === true && $('button').text() === 'Finish'){
+      showResult();
+    }
   });
-   
-  if(STORE.startQuiz === true && $('button').text() === 'Next'){
-    presentQuestion();
-  }
-  if(STORE.startQuiz === true && $('button').text() === 'Finish'){
-    showResult();
-  }
 }
+
 
 function correctAnswer(){
   // If answer is correct
