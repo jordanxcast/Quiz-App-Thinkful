@@ -139,7 +139,8 @@ function presentQuestion() {
 function submitAnswer() {
   console.log('submitAnswer ran');
   $('main').on('click', '.submit-button', event => {
-    let answerSubmit = $('input[name=options]: checked').val();
+    //console.log('event listener working for submit button');
+    let answerSubmit = $('input[name=options]:checked').val();
     if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit) {
       correctAnswer();
       scoreKeeping();
@@ -147,14 +148,13 @@ function submitAnswer() {
       incorrectAnswer();
     }
     STORE.currentQuestion++;
-    if (STORE.currentQuestion < 5){
-    $('button').text('Next');
-    }
-    else {
+  });
+    if (STORE.currentQuestion < 5) {
+      $('button').text('Next');
+    } else {
       $('button').text('Finish');
       showResult();
     }
-  });
 
   if(STORE.startQuiz === true && $('button').text() === 'Next'){
     presentQuestion();
@@ -180,8 +180,9 @@ function scoreKeeping() {
 }
 
 function showResult() {
-  $('main').on('click', '.finish-button', event => {
-    $('main').html('resultTemplate()');
+  $('main').html(resultTemplate());
+  $('main').on('click', '.introButton', event => {
+  
   });
 }
 
