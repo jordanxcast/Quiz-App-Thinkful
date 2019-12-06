@@ -63,11 +63,13 @@ const STORE = {
 
 function startTemplate() {
   // Create elements for the start page
-  return `<div class="start-page js-start-page">
-  <h1 class="intro1">Think You Know Disney Princesses?</h2>
-  <p class="intro2">Take this quiz to find out!</p>
-  <button class="introButton" type="submit">Let's Begin~</button>
-</div>`;
+  return `
+    <div class="start-page js-start-page">
+      <h1 class="intro1">Think You Know Disney Princesses?</h1>
+      <p class="intro2">Take this quiz to find out!</p>
+      <button class="introButton" type="submit">Let's Begin~</button>
+    </div>
+  `;
 }
 
 function questionTemplate() {
@@ -95,7 +97,7 @@ function questionTemplate() {
   <span class="wrong-icon"></span>${5 - STORE.currentQuestion} <span class="wrong-count">#</span>
 </div>
 <div>
-  <button type="button" class="submit-button next-button">SUBMIT</button>
+  <button type="button" class="submit-button next-button finish-button">SUBMIT</button>
 </div>`;
 }
 
@@ -116,7 +118,7 @@ function startPage() {
 function presentQuestion() {
   // Show question
   $('feedback-box').hide();
-  $('main').html(questionTemplate());
+  $('main').html('questionTemplate()');
 
 }
 
@@ -151,7 +153,7 @@ function submitAnswer() {
 
 function correctAnswer(){
   // If answer is correct
-  $(STORE.questionnaire[currentQuestion].answer).toggleClass('color', 'green');
+  $(STORE.questionnaire[currentQuestion].answer).css('color', 'green');
   STORE.score++;
 }
 
@@ -161,7 +163,9 @@ function incorrectAnswer() {
 }
 
 function showResult() {
-
+  $('main').on('click', '.finish-button', event => {
+    $('main').html('resultTemplate()');
+  });
 }
 
 function renderQuiz() {
@@ -174,6 +178,6 @@ function renderQuiz() {
   }
 }
 
-$(renderQuiz);
+$(renderQuiz());
 
 
