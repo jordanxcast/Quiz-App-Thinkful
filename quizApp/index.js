@@ -140,22 +140,30 @@ function submitAnswer() {
   console.log('submitAnswer ran');
   $('main').on('click', '.submit-button', event => {
     //console.log('event listener working for submit button');
-    let answerSubmit = $('input[name=options]:checked').val();
-    if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit) {
+
+    $('[name="x"]').on('change', function () {
+
+      alert($('[name="x"]:checked').closest('label').text());
+  
+  });
+    let answerSubmit = $("input[name='options']:checked").closest('label');
+    console.log(answerSubmit);
+    if (STORE.questionnaire[STORE.currentQuestion].answer.toLowerCase() === answerSubmit.toLowerCase()) {
       correctAnswer();
       scoreKeeping();
     } else {
       incorrectAnswer();
-    }
+    }sdf
     STORE.currentQuestion++;
-  });
+
     if (STORE.currentQuestion < 5) {
       $('button').text('Next');
     } else {
       $('button').text('Finish');
       showResult();
     }
-
+  });
+   
   if(STORE.startQuiz === true && $('button').text() === 'Next'){
     presentQuestion();
   }
