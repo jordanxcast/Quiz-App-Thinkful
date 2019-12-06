@@ -117,16 +117,17 @@ function startPage() {
 
 function presentQuestion() {
   // Show question
-  $('feedback-box').hide();
-  $('main').html('questionTemplate()');
+  $('.feedback-box').hide();
+  $('main').html(questionTemplate());
 }
 
 function startQuiz() {
   // Start the quiz when Begin or Play Again is clicked
-  $('.js-start-page').on('click', '.introButton', event => {
+  $('.main').on('click', 'button', event => {
     STORE.startQuiz = true;
     STORE.score = 0,
     STORE.currentQuestion = 1;
+    presentQuestion();
   });
 }
 
@@ -158,7 +159,7 @@ function correctAnswer(){
 
 function incorrectAnswer() {
   // If answer is incorrect
-  $('feedback-box').show();
+  $('.feedback-box').show();
 }
 
 function showResult() {
