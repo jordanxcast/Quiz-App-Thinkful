@@ -42,10 +42,22 @@ const STORE = {
   ],
   score: 0,
   startQuiz: false,
-  totalQuestion: 1,
-  currentQuestion: 0
+  currentQuestion: 1
 };
  
+
+/**
+ *
+ * Your app should include a render() function, that regenerates
+ * the view each time the store is updated. See your course
+ * material, consult your instructor, and reference the slides
+ * for more details.
+ *
+ * NO additional HTML elements should be added to the index.html file.
+ *
+ * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
+ *
+ */
 
 
 function startTemplate() {
@@ -60,7 +72,7 @@ function startTemplate() {
 function questionTemplate() {
   // Create elements for the questions page
   return `<div>
-  <h1 class="current-question">Question ${STORE.totalQuestion}/5</h1>
+  <h1 class="current-question">Question ${STORE.currentQuestion}/5</h1>
   <p class="question-content">'first question content'?</p>
 </div>
 <div>
@@ -101,7 +113,10 @@ function startPage() {
 }
 
 function presentQuestion() {
-  // Populates page with the current question if any
+  // Before question is presented, checks a few items
+  if(currentQuestion===1 && startQuiz === true){
+    
+  }
   $('main').html(questionTemplate());
 }
 
@@ -109,6 +124,9 @@ function startQuiz() {
   // Start the quiz when Begin or Play Again is clicked
   $('js-start-page').on('click', '.introButton', event => {
     presentQuestion();
+    STORE.startQuiz = true;
+    STORE.score = 0,
+    STORE.currentQuestion = 1;
   });
 }
 
@@ -130,7 +148,10 @@ function incorrectAnswer() {
 function renderQuiz() {
   // Render app when loads
   startPage();
+  startQuiz();
   submitAnswer();
 }
 
 $(renderQuiz);
+
+
