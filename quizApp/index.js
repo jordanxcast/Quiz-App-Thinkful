@@ -80,17 +80,17 @@ function questionTemplate() {
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </div>
 <div>
-  <label for="option1"><input type="radio" name="options" id="option1" required>
-  ${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
+  <label for="option1"><input type="radio" name="options" id="option1" 
+  required>${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
 
-  <label for="option2"><input type="radio" name="options" id="option2" required>
-  ${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
+  <label for="option2"><input type="radio" name="options" id="option2" 
+  required>${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
 
-  <label for="option3"><input type="radio" name="options" id="option3" required>
-  ${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
+  <label for="option3"><input type="radio" name="options" id="option3" 
+  required>${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
 
-  <label for="option4"><input type="radio" name="options" id="option4" required>
-  ${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
+  <label for="option4"><input type="radio" name="options" id="option4" 
+  required>${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
 </div>
 <div class="feedback-box">
     <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p>
@@ -101,7 +101,8 @@ function questionTemplate() {
   <span class="wrong-icon"></span>${6-STORE.score-(6-STORE.currentQuestion)} <span class="wrong-count">#</span>
 </div>
 <div>
-  <button type="button" class="submit-button next-button finish-button">SUBMIT</button>
+  <button type="button" class="submit-button">SUBMIT</button>
+  <button type="button" class="next-button">NEXT</button>
 </div>`;
 }
 
@@ -135,10 +136,15 @@ function presentQuestion() {
   // Show question
   $('main').html(questionTemplate());
   $('.feedback-box').hide();
+  $('.next-button').hide();
   submitAnswer();
 }
 
-// STORE.currentQuestion++; <- !!!
+function nextQuestion() {
+  // Show next question 
+  STORE.currentQuestion++; 
+  presentQuestion();
+}
 
 
 // Check answer and run the next question
@@ -148,6 +154,7 @@ function submitAnswer() {
     //console.log('event listener working for submit button');
     let answerSubmit = $("input[name='options']:checked").parent('label').text();
     console.log(answerSubmit);
+    console.log(STORE.questionnaire[STORE.currentQuestion].answer);
     
     if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit) {
       correctAnswer();
@@ -155,22 +162,8 @@ function submitAnswer() {
     } else {
       incorrectAnswer();
     }
-
-    if (STORE.currentQuestion < 5) {
-      $('button').text('Next');
-      
-    } else {
-      $('button').text('Finish');
-      showResult();
-    }
-
-    if(STORE.startQuiz === true && $('button').text() === 'Next'){
-      presentQuestion();
-      
-    }
-    if(STORE.startQuiz === true && $('button').text() === 'Finish'){
-      showResult();
-    }
+    $('.next-button').show();
+    $('.submit-button').hide();
   });
 }
 
