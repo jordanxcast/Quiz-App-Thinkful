@@ -151,7 +151,7 @@ function nextQuestion() {
   STORE.currentQuestion++;
   console.log(STORE.currentQuestion);
   if(STORE.currentQuestion < 5 && STORE.startQuiz === true){
-    submitAnswer();
+    presentQuestion();
     $('.submit-button').show();
     $('.next-button').hide();
   }
@@ -207,9 +207,9 @@ function showResult() {
 function renderQuiz() {
   // Render app when loads
   startPage();
+  if (STORE.score === 0){
   startQuiz();
-
-
+  }
 }
 
 $(renderQuiz());
