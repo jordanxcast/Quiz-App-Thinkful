@@ -79,7 +79,7 @@ function questionTemplate() {
   <h1 class="current-question">Question ${STORE.currentQuestion +1}/6</h1>
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </div>
-<div>
+<form id=quizOptions>
   <label for="option1"><input type="radio" name="options" id="option1" 
   required>${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
 
@@ -91,7 +91,7 @@ function questionTemplate() {
 
   <label for="option4"><input type="radio" name="options" id="option4" 
   required>${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
-</div>
+</form>
 <div class="feedback-box">
     <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p>
 </div>
@@ -111,7 +111,8 @@ function resultTemplate() {
   return `
   <div class="start-page js-start-page">
     <h1 class="intro1">Quiz Complete!</h2>
-    <p class="intro2 js-score">Score</p>
+        <p class="intro2">Score:</p>
+        <p class="correct-icon intro2">${STORE.score}</p>
     <button class="introButton" type="submit">Try Again</button>
   </div>`;
 }
@@ -123,7 +124,7 @@ function startPage() {
 
 
 function startQuiz() {
-  // Start the quiz when Begin or Play Again is clicked
+  // Start the quiz when Begin or Play Again button is clicked
     $('main').on('click', '.introButton', event => {
       event.preventDefault();
       console.log('startQUiz');
@@ -132,6 +133,7 @@ function startQuiz() {
       STORE.currentQuestion = 0;
       presentQuestion();
     });
+    
 }
 
 function presentQuestion() {
@@ -140,12 +142,11 @@ function presentQuestion() {
   $('main').html(questionTemplate());
   $('.feedback-box').hide();
   $('.next-button').hide();
-  submitAnswer();
+  nextQuestion();
+  addEventHandlerToSubmitButton();
 }
 
-function nextQuestion() {
-  // Show next question 
-  $('main').on('click', '.next-button', event => {
+function nextButtonEventHandler() {
   event.preventDefault();
   console.log('nextQ');
   STORE.currentQuestion++;
@@ -158,20 +159,22 @@ function nextQuestion() {
   else{
     showResult();
   }
-  });
 }
 
+function nextQuestion() {
+  // Show next question 
+  if(STORE.currentQuestion === 0 && STORE.startQuiz === true){
+    $('main').on('click', '.next-button', nextButtonEventHandler);
+  }
+}
 
-// Check answer and run the next question
-function submitAnswer() {
-  console.log('submitAnswer ran');
+function addEventHandlerToSubmitButton() {
   $('main').on('click', '.submit-button', event => {
     event.preventDefault();
     //console.log('event listener working for submit button');
     let answerSubmit = $("input[name='options']:checked").parent('label');
-    console.log(answerSubmit);
+    console.log(answerSubmit.text());
     console.log(STORE.questionnaire[STORE.currentQuestion].answer);
-    debugger;
     if(STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
       correctAnswer(answerSubmit);
     } else {
@@ -179,13 +182,19 @@ function submitAnswer() {
     }
     $('.submit-button').hide();
     $('.next-button').show();
-    nextQuestion();
+    $('form input[name="options"]:radio').attr('disabled',true);
   });
+}
+
+function submitAnswer() {
+  // Check answer and run the next question
+  console.log('submitAnswer ran');
+  
 }
 
 
 function correctAnswer(answer){
-  // If answer is correct
+  // If answer is correct add score
   STORE.score++;
   answer.css('color', 'green');
 }
@@ -199,15 +208,18 @@ function incorrectAnswer() {
 function showResult() {
   $('main').html(resultTemplate());
   $('main').on('click', '.introButton', event => {
-    console.log('hi');
+    event.preventDefault();
+    STORE.startQuiz = false;
+    renderQuiz();
   });
- STORE.startQuiz = false;
+
 }
 
 function renderQuiz() {
   // Render app when loads
   startPage();
-  if (STORE.score === 0){
+
+  if(STORE.startQuiz === false){
   startQuiz();
   }
 }
