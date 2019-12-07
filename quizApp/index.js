@@ -124,16 +124,19 @@ function startPage() {
 
 function startQuiz() {
   // Start the quiz when Begin or Play Again is clicked
-  $('button').click( event => {
-    STORE.startQuiz = true;
-    STORE.score = 0,
-    // Present the first question
-    presentQuestion();
-  });
+    $('main').on('click', '.introButton', event => {
+      event.preventDefault();
+      console.log('startQUiz');
+      STORE.startQuiz = true;
+      STORE.score = 0;
+      STORE.currentQuestion = 0;
+      presentQuestion();
+    });
 }
 
 function presentQuestion() {
   // Show question
+  console.log('presentQ');
   $('main').html(questionTemplate());
   $('.feedback-box').hide();
   $('.next-button').hide();
@@ -142,8 +145,20 @@ function presentQuestion() {
 
 function nextQuestion() {
   // Show next question 
-  STORE.currentQuestion++; 
-  presentQuestion();
+  $('main').on('click', '.next-button', event => {
+  event.preventDefault();
+  console.log('nextQ');
+  STORE.currentQuestion++;
+  console.log(STORE.currentQuestion);
+  if(STORE.currentQuestion < 5 && STORE.startQuiz === true){
+    submitAnswer();
+    $('.submit-button').show();
+    $('.next-button').hide();
+  }
+  else{
+    showResult();
+  }
+  });
 }
 
 
@@ -151,26 +166,28 @@ function nextQuestion() {
 function submitAnswer() {
   console.log('submitAnswer ran');
   $('main').on('click', '.submit-button', event => {
+    event.preventDefault();
     //console.log('event listener working for submit button');
-    let answerSubmit = $("input[name='options']:checked").parent('label').text();
+    let answerSubmit = $("input[name='options']:checked").parent('label');
     console.log(answerSubmit);
     console.log(STORE.questionnaire[STORE.currentQuestion].answer);
-    
-    if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit) {
-      correctAnswer();
-      scoreKeeping();
+    debugger;
+    if(STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
+      correctAnswer(answerSubmit);
     } else {
       incorrectAnswer();
     }
-    $('.next-button').show();
     $('.submit-button').hide();
+    $('.next-button').show();
+    nextQuestion();
   });
 }
 
 
-function correctAnswer(){
+function correctAnswer(answer){
   // If answer is correct
-  $(STORE.questionnaire[STORE.currentQuestion].answer).css('color', 'green');
+  STORE.score++;
+  answer.css('color', 'green');
 }
 
 function incorrectAnswer() {
@@ -178,22 +195,21 @@ function incorrectAnswer() {
   $('.feedback-box').show();
 }
 
-function scoreKeeping() {
-  // Adding scores when correct
-  STORE.score++;
-}
 
 function showResult() {
   $('main').html(resultTemplate());
   $('main').on('click', '.introButton', event => {
-  
+    console.log('hi');
   });
+ STORE.startQuiz = false;
 }
 
 function renderQuiz() {
   // Render app when loads
   startPage();
   startQuiz();
+
+
 }
 
 $(renderQuiz());
