@@ -46,7 +46,6 @@ const STORE = {
   currentQuestion: 0
 };
  
-
 /**
  *
  * Your app should include a render() function, that regenerates
@@ -59,7 +58,6 @@ const STORE = {
  * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
  *
  */
-
 
 function startTemplate() {
   // Create elements for the start page
@@ -98,7 +96,6 @@ function questionTemplate() {
 <div id="score-counter">
   <h3 class="score">Score:</h3>
   <span class="correct-icon"></span>${STORE.score}<span class="correct-count">#</span><br>
-  <span class="wrong-icon"></span>${6-STORE.score-(6-STORE.currentQuestion)} <span class="wrong-count">#</span>
 </div>
 <div>
   <button type="button" class="submit-button">SUBMIT</button>
@@ -127,21 +124,24 @@ function startQuiz() {
   // Start the quiz when Begin or Play Again button is clicked
     $('main').on('click', '.introButton', event => {
       event.preventDefault();
-      console.log('startQUiz');
+      console.log('startQuiz');
       STORE.startQuiz = true;
       STORE.score = 0;
       STORE.currentQuestion = 0;
       presentQuestion();
-    });
-    
+    }); 
 }
 
 function presentQuestion() {
   // Show question
   console.log('presentQ');
+  //generate html from question template
   $('main').html(questionTemplate());
+  //hide feedback bos in html
   $('.feedback-box').hide();
+  //hide next button - only show submit button
   $('.next-button').hide();
+
   nextQuestion();
   addEventHandlerToSubmitButton();
 }
@@ -175,23 +175,23 @@ function addEventHandlerToSubmitButton() {
     let answerSubmit = $("input[name='options']:checked").parent('label');
     console.log(answerSubmit.text());
     console.log(STORE.questionnaire[STORE.currentQuestion].answer);
-    if(STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
+
+    if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
       correctAnswer(answerSubmit);
     } else {
       incorrectAnswer();
     }
+     //if you click the submit button without selecting an answer, alert user to choose an option 
+    let selectedOption = $("input[name=options]:checked").val();
+    if (!selectedOption){
+      alert('Please choose an option');
+    }
+  
     $('.submit-button').hide();
     $('.next-button').show();
     $('form input[name="options"]:radio').attr('disabled',true);
   });
 }
-
-function submitAnswer() {
-  // Check answer and run the next question
-  console.log('submitAnswer ran');
-  
-}
-
 
 function correctAnswer(answer){
   // If answer is correct add score
@@ -204,15 +204,15 @@ function incorrectAnswer() {
   $('.feedback-box').show();
 }
 
-
 function showResult() {
+  console.log(STORE.score);
   $('main').html(resultTemplate());
+  console.log(STORE.score);
   $('main').on('click', '.introButton', event => {
     event.preventDefault();
     STORE.startQuiz = false;
     renderQuiz();
   });
-
 }
 
 function renderQuiz() {
