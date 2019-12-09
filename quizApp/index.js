@@ -78,17 +78,17 @@ function questionTemplate() {
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </div>
 <form id=quizOptions>
-  <label for="option1"><input type="radio" name="options" id="option1" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
+  <label for="option1"><input type="radio" name="options" id="option1"
+  >${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
 
   <label for="option2"><input type="radio" name="options" id="option2" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
+  >${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
 
   <label for="option3"><input type="radio" name="options" id="option3" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
+  >${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
 
   <label for="option4"><input type="radio" name="options" id="option4" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
+  >${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
 </form>
 <div class="feedback-box">
     <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p>
@@ -168,28 +168,34 @@ function nextQuestion() {
   }
 }
 
+function checkForSelection() {
+  // Check to see if one radio option is selected
+ if($('input:radio').is(':checked')) {
+  let answerSubmit = $("input[name='options']:checked").parent('label');
+  console.log(answerSubmit.text());
+  console.log(STORE.questionnaire[STORE.currentQuestion].answer);
+
+  if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
+    correctAnswer(answerSubmit);
+  } else {
+    incorrectAnswer();
+  }
+
+  $('.submit-button').hide();
+  $('.next-button').show();
+  $('form input[name="options"]:radio').attr('disabled',true);
+  }
+  else {
+    alert('Please choose an option');
+    return false;
+  }
+}
+
 function addEventHandlerToSubmitButton() {
+  console.log('e2');
   $('main').on('click', '.submit-button', event => {
     event.preventDefault();
-    //console.log('event listener working for submit button');
-    let answerSubmit = $("input[name='options']:checked").parent('label');
-    console.log(answerSubmit.text());
-    console.log(STORE.questionnaire[STORE.currentQuestion].answer);
-
-    if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
-      correctAnswer(answerSubmit);
-    } else {
-      incorrectAnswer();
-    }
-     //if you click the submit button without selecting an answer, alert user to choose an option 
-    let selectedOption = $("input[name=options]:checked").val();
-    if (!selectedOption){
-      alert('Please choose an option');
-    }
-  
-    $('.submit-button').hide();
-    $('.next-button').show();
-    $('form input[name="options"]:radio').attr('disabled',true);
+    checkForSelection();
   });
 }
 
