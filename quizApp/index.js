@@ -73,7 +73,7 @@ function startTemplate() {
 function questionTemplate() {
   // Create elements for the questions page
   return `
-<div>
+<div class="questionContainer">
   <h1 class="current-question">Question ${STORE.currentQuestion +1}/6</h1>
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </div>
@@ -91,16 +91,18 @@ function questionTemplate() {
   >${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
 </form>
 <div class="feedback-box">
-    <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p>
+    <span><i class="fas fa-times"></i></span><span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p></span>
 </div>
-<div id="score-counter">
-  <h3 class="score">Score:</h3>
-  <span class="correct-icon"></span>${STORE.score}<span class="correct-count">#</span><br>
-</div>
-<div>
-  <button type="button" class="submit-button">SUBMIT</button>
-  <button type="button" class="next-button">NEXT</button>
-</div>`;
+<section class="bottom">
+  <div id="score-counter">
+    <h3 class="score">Score:</h3>
+    <span class="correct-count">${STORE.score}</span>
+  </div>
+  <div class="button-container">
+    <button type="button" class="submit-button">SUBMIT</button>
+    <button type="button" class="next-button">NEXT</button>
+  </div>
+</section>`;
 }
 
 function resultTemplate() {
@@ -109,7 +111,7 @@ function resultTemplate() {
   <div class="start-page js-start-page">
     <h1 class="intro1">Quiz Complete!</h2>
         <p class="intro2">Score:</p>
-        <p class="correct-icon intro2">${STORE.score}</p>
+        <p class="correct-icon score-result">${STORE.score}</p>
     <button class="introButton" type="submit">Try Again</button>
   </div>`;
 }
