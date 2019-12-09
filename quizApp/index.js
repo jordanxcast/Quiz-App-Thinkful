@@ -119,27 +119,26 @@ function startPage() {
   $('main').html(startTemplate());
 }
 
-
 function startQuiz() {
   // Start the quiz when Begin or Play Again button is clicked
-    $('main').on('click', '.introButton', event => {
-      event.preventDefault();
-      console.log('startQuiz');
-      STORE.startQuiz = true;
-      STORE.score = 0;
-      STORE.currentQuestion = 0;
-      presentQuestion();
-    }); 
+  $('main').on('click', '.introButton', event => {
+    event.preventDefault();
+    //console.log('startQuiz');
+    STORE.startQuiz = true;
+    STORE.score = 0;
+    STORE.currentQuestion = 0;
+    presentQuestion();
+  }); 
 }
 
 function presentQuestion() {
   // Show question
   console.log('presentQ');
-  //generate html from question template
+  //Generate html from question template
   $('main').html(questionTemplate());
-  //hide feedback bos in html
+  //Hide feedback bos in html
   $('.feedback-box').hide();
-  //hide next button - only show submit button
+  //Hide next button - only show submit button
   $('.next-button').hide();
 
   nextQuestion();
@@ -173,20 +172,20 @@ function addEventHandlerToSubmitButton() {
     event.preventDefault();
     //console.log('event listener working for submit button');
     let answerSubmit = $("input[name='options']:checked").parent('label');
-    console.log(answerSubmit.text());
-    console.log(STORE.questionnaire[STORE.currentQuestion].answer);
+    //console.log(answerSubmit.text());
+    //console.log(STORE.questionnaire[STORE.currentQuestion].answer);
 
     if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
       correctAnswer(answerSubmit);
     } else {
       incorrectAnswer();
     }
-     //if you click the submit button without selecting an answer, alert user to choose an option 
+    //if you click the submit button without selecting an answer, alert user to choose an option 
     let selectedOption = $("input[name=options]:checked").val();
     if (!selectedOption){
-      alert('Please choose an option');
+    alert('Please choose an option');
     }
-  
+
     $('.submit-button').hide();
     $('.next-button').show();
     $('form input[name="options"]:radio').attr('disabled',true);
@@ -195,6 +194,7 @@ function addEventHandlerToSubmitButton() {
 
 function correctAnswer(answer){
   // If answer is correct add score
+  console.log(STORE);
   STORE.score++;
   answer.css('color', 'green');
 }
@@ -205,9 +205,7 @@ function incorrectAnswer() {
 }
 
 function showResult() {
-  console.log(STORE.score);
   $('main').html(resultTemplate());
-  console.log(STORE.score);
   $('main').on('click', '.introButton', event => {
     event.preventDefault();
     STORE.startQuiz = false;
