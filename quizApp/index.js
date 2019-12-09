@@ -73,10 +73,10 @@ function startTemplate() {
 function questionTemplate() {
   // Creates elements for the questions page
   return `
-<div class="questionContainer">
+<section class="questionContainer">
   <h1 class="current-question">Question ${STORE.currentQuestion +1}/6</h1>
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
-</div>
+</section>
 <form id=quizOptions>
   <label for="option1"><input type="radio" name="options" id="option1"
   >${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
@@ -90,12 +90,12 @@ function questionTemplate() {
   <label for="option4"><input type="radio" name="options" id="option4" 
   >${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
 </form>
-<div class="feedback-box">
+<section class="feedback-box">
     <span><i class="fas fa-times"></i></span><span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p></span>
-</div>
+</section>
 <section class="bottom">
   <div id="score-counter">
-    <h3 class="score">Score:</h3>
+    <h2 class="score">Score:</h2>
     <span class="correct-count">${STORE.score}</span>
   </div>
   <div class="button-container">

@@ -27,15 +27,15 @@ body {
 
 .intro2 {
     font-size: 40px;
-    width: 30%;
+    width: 35%;
     background-color: rgba(255, 255, 255, 0.4);
     box-shadow: 1px 1px .5px #888888;
     margin: auto;
     margin-bottom: 15px;
     padding: 5px;
     -webkit-box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
--moz-box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
-box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
+    -moz-box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
+    box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
 }
 
 .score-result {
@@ -82,7 +82,7 @@ box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
     width: 70%;
     padding-left: 40px;
     margin: auto;
-    font-size: 16px;
+    font-size: 18px;
     border: 2px solid black;
     background-color: rgba(255, 255, 255, 0.4);
 }
@@ -113,7 +113,7 @@ label > input {
     text-align: left;
     font-size: .5rem;
     line-height: 20px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .fa-times{
@@ -179,4 +179,30 @@ label > input {
     justify-content: center;
     margin: auto;
     border-radius: 25px;
+}
+
+
+
+/* Mobile Display */
+@media screen and (max-width: 425px){
+    .intro1 {
+        font-size: 40px;
+    }
+
+    .intro2 {
+        width: 70%;
+        font-size: 30px;
+    }
+
+    .submit-button, .next-button {
+        padding: 3px 10px;
+        font-size: 17px;
+    }
+}
+
+/* Tablet Display */
+@media screen and (max-width: 768px){
+    body {
+        background-size: auto;
+    }
 }
