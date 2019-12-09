@@ -117,6 +117,7 @@ function resultTemplate() {
 function startPage() {
   // Create the start page
   $('main').html(startTemplate());
+  startQuiz();
 }
 
 function startQuiz() {
@@ -142,14 +143,14 @@ function presentQuestion() {
   $('.next-button').hide();
 
   handlesNextButton();
-  handlesSubmitButton();
+  // handlesSubmitButton();
 }
 
 function nextQuestion() {
   //If the current question is not the last question, then we generate the next question
   event.preventDefault();
   if(STORE.currentQuestion < 5 && STORE.startQuiz === true){
-    STORE.currentQuestion++;
+    updateQuestionNum();
     presentQuestion();    
 
     $('.submit-button').show();
@@ -158,6 +159,10 @@ function nextQuestion() {
   else{
     showResult();
   }
+}
+
+function updateQuestionNum(){
+  STORE.currentQuestion++;
 }
 
 function handlesNextButton() {
@@ -197,10 +202,14 @@ function handlesSubmitButton() {
 }
 
 function correctAnswer(answer){
-  // If answer is correct increment the score
   //and change css to green
-  STORE.score++;
   answer.css('color', 'green');
+  //call update score function
+  updateScore();
+}
+
+function updateScore(){
+  STORE.score++;
 }
 
 function incorrectAnswer() {
@@ -225,7 +234,11 @@ function restartQuiz(){
 function renderQuiz() {
   // Render app when loads
   startPage();
-  startQuiz();
+  // if (STORE.startQuiz = true){
+  //   startQuiz();
+  // }
+  handlesNextButton();
+  handlesSubmitButton();
 }
 
 $(renderQuiz());
