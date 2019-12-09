@@ -60,7 +60,7 @@ const STORE = {
  */
 
 function startTemplate() {
-  // Create elements for the start page
+  // Creates elements for the start page
   return `
     <div class="start-page js-start-page">
       <h1 class="intro1">Think You Know Disney Princesses?</h1>
@@ -71,7 +71,7 @@ function startTemplate() {
 }
 
 function questionTemplate() {
-  // Create elements for the questions page
+  // Creates elements for the questions page
   return `
 <div class="questionContainer">
   <h1 class="current-question">Question ${STORE.currentQuestion +1}/6</h1>
@@ -106,7 +106,7 @@ function questionTemplate() {
 }
 
 function resultTemplate() {
-  // Create elements for the result page
+  // Creates elements for the result page
   return `
   <div class="start-page js-start-page">
     <h1 class="intro1">Quiz Complete!</h2>
@@ -117,16 +117,15 @@ function resultTemplate() {
 }
 
 function startPage() {
-  // Create the start page
+  // Creates the start page
   $('main').html(startTemplate());
   startQuiz();
 }
 
 function startQuiz() {
-  // Start the quiz when Begin or Play Again button is clicked
+  // Listens for when to start the quiz
   $('main').on('click', '.introButton', event => {
     event.preventDefault();
-    //console.log('startQuiz');
     STORE.startQuiz = true;
     STORE.score = 0;
     STORE.currentQuestion = 0;
@@ -136,25 +135,24 @@ function startQuiz() {
 
 
 function presentQuestion() {
-  // Show question
-  //Generate html from question template
+  // Shows question
   $('main').html(questionTemplate());
-  //Hide feedback bos in html
   $('.feedback-box').hide();
-  //Hide next button - only show submit button
   $('.next-button').hide();
-
   handlesNextButton();
-  // handlesSubmitButton();
+}
+
+function updateQuestionNum(){
+  // Increments the current question
+  STORE.currentQuestion++;
 }
 
 function nextQuestion() {
-  //If the current question is not the last question, then we generate the next question
+  // Shows the next question or if it's the last question, shows the results
   event.preventDefault();
-  if(STORE.currentQuestion < 5 && STORE.startQuiz === true){
+  if(STORE.currentQuestion < 5){
     updateQuestionNum();
     presentQuestion();    
-
     $('.submit-button').show();
     $('.next-button').hide();
   }
@@ -163,32 +161,26 @@ function nextQuestion() {
   }
 }
 
-function updateQuestionNum(){
-  STORE.currentQuestion++;
-}
-
 function handlesNextButton() {
-  // Show next question 
+  // Listens for when to display the next question
   if(STORE.currentQuestion === 0 && STORE.startQuiz === true){
     $('main').on('click', '.next-button', nextQuestion);
   }
 }
 
 function checkForSelection() {
-  // Check to see if one radio option is selected
- if($('input:radio').is(':checked')) {
-  let answerSubmit = $("input[name='options']:checked").parent('label');
-
-  if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
-    correctAnswer(answerSubmit);
-  } else {
-    incorrectAnswer();
-  }
-
-  $('.submit-button').hide();
-  $('.next-button').show();
-  $('form input[name="options"]:radio').attr('disabled',true);
-  }
+  // Checks the answer if an option is selected, else alert the user
+  if($('input:radio').is(':checked')) {
+    let answerSubmit = $("input[name='options']:checked").parent('label');
+    if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
+      correctAnswer(answerSubmit);
+    } else {
+      incorrectAnswer();
+    }
+    $('.submit-button').hide();
+    $('.next-button').show();
+    $('form input[name="options"]:radio').attr('disabled',true);
+    }
   else {
     alert('Please choose an option');
     return false;
@@ -196,7 +188,7 @@ function checkForSelection() {
 }
 
 function handlesSubmitButton() {
-  //Checking for if the submit button is clicked and then check for the solution
+  // Listens for when user submits to check the answer
   $('main').on('click', '.submit-button', event => {
     event.preventDefault();
     checkForSelection();
@@ -204,28 +196,29 @@ function handlesSubmitButton() {
 }
 
 function correctAnswer(answer){
-  //and change css to green
+  // Highlights the correct answer
   answer.css('color', 'green');
-  //call update score function
+  // Calls the function to update score
   updateScore();
 }
 
 function updateScore(){
+  // Increments the score
   STORE.score++;
 }
 
 function incorrectAnswer() {
-  // If answer is incorrect show the feedback box the right answer 
+  // Shows the correct answer if user selection is incorrect
   $('.feedback-box').show();
 }
 
 function showResult() {
-  //shows the result page html
-  //if the try again button is clicked then restart quiz 
+  // Shows the result page html
   $('main').html(resultTemplate());
 }
 
 function restartQuiz(){
+  // Listens for when the user wants to play again
   $('main').on('click', '.introButton', event => {
     event.preventDefault();
     STORE.startQuiz = false;
@@ -236,9 +229,6 @@ function restartQuiz(){
 function renderQuiz() {
   // Render app when loads
   startPage();
-  // if (STORE.startQuiz = true){
-  //   startQuiz();
-  // }
   handlesNextButton();
   handlesSubmitButton();
 }
