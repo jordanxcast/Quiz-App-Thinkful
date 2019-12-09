@@ -126,31 +126,36 @@ function startQuiz() {
   // Listens for when to start the quiz
   $('main').on('click', '.introButton', event => {
     event.preventDefault();
-    STORE.startQuiz = true;
+    STORE.startQuiz = !STORE.startQuiz;
     STORE.score = 0;
+    debugger;
     STORE.currentQuestion = 0;
+    debugger;
     presentQuestion();
   }); 
 }
-
 
 function presentQuestion() {
   // Shows question
   $('main').html(questionTemplate());
   $('.feedback-box').hide();
   $('.next-button').hide();
+  debugger;
   handlesNextButton();
 }
 
 function updateQuestionNum(){
   // Increments the current question
+  debugger;
   STORE.currentQuestion++;
+  console.log(STORE.currentQuestion);
 }
 
 function nextQuestion() {
   // Shows the next question or if it's the last question, shows the results
   event.preventDefault();
   if(STORE.currentQuestion < 5){
+    debugger;
     updateQuestionNum();
     presentQuestion();    
     $('.submit-button').show();
