@@ -141,7 +141,7 @@ function presentQuestion() {
   $('.feedback-box').hide();
   $('.next-button').hide();
   debugger;
-  handlesNextButton();
+  //handlesNextButton();
 }
 
 function updateQuestionNum(){
@@ -168,9 +168,9 @@ function nextQuestion() {
 
 function handlesNextButton() {
   // Listens for when to display the next question
-  if(STORE.currentQuestion === 0 && STORE.startQuiz === true){
+  //if(STORE.currentQuestion === 0 && STORE.startQuiz === true){
     $('main').on('click', '.next-button', nextQuestion);
-  }
+  //}
 }
 
 function checkForSelection() {
