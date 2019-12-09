@@ -78,17 +78,17 @@ function questionTemplate() {
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </div>
 <form id=quizOptions>
-  <label for="option1"><input type="radio" name="options" id="option1" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
+  <label for="option1"><input type="radio" name="options" id="option1"
+  >${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
 
   <label for="option2"><input type="radio" name="options" id="option2" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
+  >${STORE.questionnaire[STORE.currentQuestion].option2}</label><br>
 
   <label for="option3"><input type="radio" name="options" id="option3" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
+  >${STORE.questionnaire[STORE.currentQuestion].option3}</label><br>
 
   <label for="option4"><input type="radio" name="options" id="option4" 
-  required>${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
+  >${STORE.questionnaire[STORE.currentQuestion].option4}</label><br>
 </form>
 <div class="feedback-box">
     <span><i class="fas fa-times"></i></span><p class="feedback-answer">Nice try. The correct answer is actually: ${STORE.questionnaire[STORE.currentQuestion].answer}</p>
@@ -131,9 +131,9 @@ function startQuiz() {
   }); 
 }
 
+
 function presentQuestion() {
   // Show question
-  console.log('presentQ');
   //Generate html from question template
   $('main').html(questionTemplate());
   //Hide feedback bos in html
@@ -141,17 +141,17 @@ function presentQuestion() {
   //Hide next button - only show submit button
   $('.next-button').hide();
 
-  nextQuestion();
-  addEventHandlerToSubmitButton();
+  handlesNextButton();
+  handlesSubmitButton();
 }
 
-function nextButtonEventHandler() {
+function nextQuestion() {
+  //If the current question is not the last question, then we generate the next question
   event.preventDefault();
-  console.log('nextQ');
-  STORE.currentQuestion++;
-  console.log(STORE.currentQuestion);
   if(STORE.currentQuestion < 5 && STORE.startQuiz === true){
-    presentQuestion();
+    STORE.currentQuestion++;
+    presentQuestion();    
+
     $('.submit-button').show();
     $('.next-button').hide();
   }
@@ -160,52 +160,61 @@ function nextButtonEventHandler() {
   }
 }
 
-function nextQuestion() {
+function handlesNextButton() {
   // Show next question 
   if(STORE.currentQuestion === 0 && STORE.startQuiz === true){
-    $('main').on('click', '.next-button', nextButtonEventHandler);
+    $('main').on('click', '.next-button', nextQuestion);
   }
 }
 
-function addEventHandlerToSubmitButton() {
+function checkForSelection() {
+  // Check to see if one radio option is selected
+ if($('input:radio').is(':checked')) {
+  let answerSubmit = $("input[name='options']:checked").parent('label');
+
+  if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
+    correctAnswer(answerSubmit);
+  } else {
+    incorrectAnswer();
+  }
+
+  $('.submit-button').hide();
+  $('.next-button').show();
+  $('form input[name="options"]:radio').attr('disabled',true);
+  }
+  else {
+    alert('Please choose an option');
+    return false;
+  }
+}
+
+function handlesSubmitButton() {
+  //Checking for if the submit button is clicked and then check for the solution
   $('main').on('click', '.submit-button', event => {
     event.preventDefault();
-    //console.log('event listener working for submit button');
-    let answerSubmit = $("input[name='options']:checked").parent('label');
-    //console.log(answerSubmit.text());
-    //console.log(STORE.questionnaire[STORE.currentQuestion].answer);
-
-    if (STORE.questionnaire[STORE.currentQuestion].answer === answerSubmit.text()) {
-      correctAnswer(answerSubmit);
-    } else {
-      incorrectAnswer();
-    }
-    //if you click the submit button without selecting an answer, alert user to choose an option 
-    let selectedOption = $("input[name=options]:checked").val();
-    if (!selectedOption){
-    alert('Please choose an option');
-    }
-
-    $('.submit-button').hide();
-    $('.next-button').show();
-    $('form input[name="options"]:radio').attr('disabled',true);
+    checkForSelection();
   });
 }
 
 function correctAnswer(answer){
-  // If answer is correct add score
-  console.log(STORE);
+  // If answer is correct increment the score
+  //and change css to green
   STORE.score++;
   answer.css('color', 'green');
 }
 
 function incorrectAnswer() {
-  // If answer is incorrect
+  // If answer is incorrect show the feedback box the right answer 
   $('.feedback-box').show();
 }
 
 function showResult() {
+  //shows the result page html
+  //if the try again button is clicked then restart quiz 
   $('main').html(resultTemplate());
+}
+
+function restartQuiz(){
   $('main').on('click', '.introButton', event => {
     event.preventDefault();
     STORE.startQuiz = false;
@@ -216,10 +225,7 @@ function showResult() {
 function renderQuiz() {
   // Render app when loads
   startPage();
-
-  if(STORE.startQuiz === false){
   startQuiz();
-  }
 }
 
 $(renderQuiz());
