@@ -77,7 +77,7 @@ function questionTemplate() {
   <h1 class="current-question">Question ${STORE.currentQuestion +1}/6</h1>
   <p class="question-content">${STORE.questionnaire[STORE.currentQuestion].question}</p>
 </section>
-<form id=quizOptions>
+<form id=quizOptions aria-label="Answer choice options">
   <label for="option1"><input type="radio" name="options" id="option1"
   >${STORE.questionnaire[STORE.currentQuestion].option1}</label><br>
 
