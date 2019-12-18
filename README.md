@@ -1,3 +1,1 @@
-Pair: 
-  Nghi Tran 
-  Jordan Castillo 
+Jordan Castillo's Quiz App
