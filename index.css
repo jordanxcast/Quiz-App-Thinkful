@@ -1,51 +1,208 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Courgette', cursive;
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+    background-image: url(QuizApp-bg.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 
-button, input[type="text"] {
-  padding: 5px;
+.start-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10%;
 }
 
-button:hover {
-  cursor: pointer;
+.start-page > h1, p {
+    text-align: center;
 }
 
-.hidden {
-  display: none;
+.intro1 {
+    font-size: 50px;
+    text-shadow: 2px 2px 5px lightpink;
 }
 
-#shopping-list-item {
-  width: 250px;
+.intro2 {
+    font-size: 40px;
+    width: 35%;
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 1px 1px .5px #888888;
+    margin: auto;
+    margin-bottom: 15px;
+    padding: 5px;
+    -webkit-box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
+    -moz-box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
+    box-shadow: -5px 14px 55px 0px rgba(207,207,207,1);
 }
 
-.container {
-  max-width: 600px;
-  margin: 0 auto;
+.score-result {
+    font-size: 40px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 10%;
+    margin: auto;
 }
 
-.shopping-list {
-  list-style: none;
-  padding-left: 0;
+.introButton {
+    padding: 5px 15px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    background-color: mistyrose;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    border-radius: 25px;
 }
 
-.shopping-list > li {
-  margin-bottom: 20px;
-  border: 1px solid grey;
-  padding: 20px;
+.questionContainer{
+    margin-top: 30px;
+    text-align: center;
+    width: 70%;
+    margin: auto;
+    border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
-.shopping-item {
-  display: block;
-  color: grey;
-  font-style: italic;
-  font-size: 20px;
-  margin-bottom: 15px;
+.current-question{
+    margin-bottom: 0px;
 }
 
-.shopping-item__checked {
-  text-decoration: line-through;
+.question-content{
+    font-size: 20px;
+}
+
+#quizOptions {
+    width: 70%;
+    padding-left: 40px;
+    margin: auto;
+    font-size: 18px;
+    border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+label > input {
+    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 40px;
+  }
+
+.feedback-box{
+    border: 2px solid red;
+    padding: 5px 30px;
+    /* margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5%;
+    margin-right: 5%; */
+    display: flex;
+    width: 70%;
+    margin: auto;
+}
+
+.feedback-answer{
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 15px;
+    text-align: left;
+    font-size: .5rem;
+    line-height: 20px;
+    font-size: 14px;
+}
+
+.fa-times{
+    color: red;
+}
+
+.bottom {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    padding-bottom: 5px;
+    border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+
+#score-counter {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.score{ 
+    text-decoration : underline;
+    margin-bottom: 8px;
+    /* margin-top: 10px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.correct-count {
+    font-size: 14px;
+    margin: auto;
+    margin-bottom: 6px;
+}
+
+.button-container{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.submit-button{
+    padding: 5px 15px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    background-color: mistyrose;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    border-radius: 25px;
+}
+
+.next-button{
+    padding: 5px 15px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    background-color: mistyrose;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    border-radius: 25px;
+}
+
+
+
+/* Mobile Display */
+@media screen and (max-width: 425px){
+    .intro1 {
+        font-size: 40px;
+    }
+
+    .intro2 {
+        width: 70%;
+        font-size: 30px;
+    }
+
+    .submit-button, .next-button {
+        padding: 3px 10px;
+        font-size: 17px;
+    }
+}
+
+/* Tablet Display */
+@media screen and (max-width: 768px){
+    body {
+        background-size: auto;
+    }
 }

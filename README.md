@@ -1,1 +1,3 @@
-# Dec5-Jordan-Nghi
+Pair: 
+  Nghi Tran 
+  Jordan Castillo 
